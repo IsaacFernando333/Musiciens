@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musiciens</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main class="caixa-mestre">
+        <div class="filhos titulo">
+            <h2>Musiciens</h2>
+        </div>
+        <div class="filhos escolha">
+            <h2>Gerar:</h2>
+            <div class="opcoes escala">Escala</div>
+            <div class="opcoes campo">Campo</div>
+            <div class="opcoes per-pop">Personalizada</div>
+        </div>
+
+<!-- parte dos ajustes -->
+        <div class="filhos ajustes">
+            <div class="ajuste tonica">Tônica: 
+                <select class="selecionar tonicas">
+                    <option class="valor" value="C">C</option>
+                    <option class="valor" value="C#/Db">C#</option>
+                    <option class="valor" value="D">D</option>
+                    <option class="valor" value="D#/Eb">D#</option>
+                    <option class="valor" value="E">E</option>
+                    <option class="valor" value="F">F</option>
+                    <option class="valor" value="F#/Gb">F#</option>
+                    <option class="valor" value="G">G</option>
+                    <option class="valor" value="G#/Ab">G#</option>
+                    <option class="valor" value="A">A</option>
+                    <option class="valor" value="A#/Bb">A#</option>
+                    <option class="valor" value="B">B</option>
+                </select>
+            </div>
+            <div class="ajuste tipo">Tipo: <select class="selecionar tipos">
+                <option value="0" class="nat">maior natural</option>
+                <option value="1" class="har">menor harmônica</option>
+                <option value="2" class="mel">menor melódica</option>
+                <option value="3" class="menat">menor natural</option>
+                <option value="4" class="petmen">pentatônica menor</option>
+                <option value="5" class="petmai">pentatônica maior</option>
+                <option value="6" class="dim">diminuta</option>
+            </select></div>
+            <div class="ajuste afinação">Afinação: <select class="selecionar afina">
+                <option value="0">Padrão</option>
+                <option value="-2">-2 T</option>
+                <option value="-1,5">-1,5 T</option>
+                <option value="-1">-1 T</option>
+                <option value="-0,5">-0,5 T</option>
+                <option value="+0,5">+0,5 T</option>
+                <option value="+1">+1 T</option>
+                <option value="+1,5">+1,5 T</option>
+                <option value="+2">+2 T</option>
+            </select></div>
+            <input type="button" onclick="format()" value="Criar" class="bt">
+        </div>
+<!-- Resultado -->
+        <div class="filhos resultado">
+            <h2 class="nome"></h2>
+            <table>
+                <tr>
+                    <td class="notinhas">E</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                </tr>
+                <tr>
+                    <td class="notinhas">B</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                </tr>
+                <tr>
+                    <td class="notinhas">G</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                </tr>
+                <tr>
+                    <td class="notinhas">D</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                </tr>
+                <tr>
+                    <td class="notinhas">A</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                </tr>
+                <tr>
+                    <td class="notinhas">E</td>
+                    <td class="pestana"></td>
+                    <td class="notinhas">F</td>
+                    <td class="notinhas">F#/Gb</td>
+                    <td class="notinhas">G</td>
+                    <td class="notinhas">G#/Ab</td>
+                    <td class="notinhas">A</td>
+                    <td class="notinhas">A#/Bb</td>
+                    <td class="notinhas">B</td>
+                    <td class="notinhas">C</td>
+                    <td class="notinhas">C#/Db</td>
+                    <td class="notinhas">D</td>
+                    <td class="notinhas">D#/Eb</td>
+                    <td class="notinhas">E</td>
+                </tr>
+            </table>
+            <h3 class="infoUm"></h3>
+            <h3 class="infoDois"></h3>
+        </div>
+    </main>
+    <script src="../sistemas/script.js"></script>
+</body>
+</html>
