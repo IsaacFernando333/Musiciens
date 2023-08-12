@@ -30,29 +30,29 @@ function geraEscala(tonica, tipo) {
     
     if (tipo === 2) {
         formula = [0,  2,  3,  5, 7, 9, 11];
-    }
+    };
     
     if (tipo === 3) {
         formula = [0, 2,  3,  5, 7, 8, 10, 12];
-    }
+    };
     
     if (tipo === 4) {
         formula = [0, 3, 5, 7, 10];
-    }
+    };
     
     if (tipo === 5) {
         formula = [0, 2, 4, 7, 9];
-    }
+    };
 
     if (tipo === 6) {
-        formula = [0, 2, 3,  5, 6, 8, 9, 11, 12];
-    }
+        formula = [0, 2, 3, 5, 6, 8, 9, 11];
+    };
     
     const escala = new Array();
     
     for (e of formula) {
         escala.push(novasNotas[e]);
-    }
+    };
     
     return escala;
 };
@@ -68,7 +68,7 @@ function format() {
         n.style.border = 'none';    
         n.style.color = 'white';
         n.style.backgroundColor = 'black';
-    }
+    };
     
     let trem = restart();
     
@@ -77,13 +77,22 @@ function format() {
             if (n.innerText === l) {
                 n.style.color = 'black';
                 n.style.backgroundColor = 'white';
-            }
-        }
-    }
+            };
+        };
+    };
+
+    tip = ['maior natural', 'menor harmônica', 'menor melódica', 'menor natural', 'pentatônica menor', 'pentatônica maior', 'diminuta'];
+    let indexTip = document.querySelector('.tipos').value;
     
-    nome.innerHTML = `${trem[0]} maior natural`;
-    infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]} - ${trem[5]} - ${trem[6]} - ${trem[7]}`;
-    infoDois.innerHTML = `O campo harmônico = ${trem[0]}`;
+    nome.innerHTML = `${trem[0]} ${tip[indexTip]}`;
+
+    if (trem.length === 8) {
+        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]} - ${trem[5]} - ${trem[6]} - ${trem[7]}`;
+    } else if (trem.length === 7) {
+        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]} - ${trem[5]} - ${trem[6]}`;
+    } else if (trem.length === 5) {
+        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]}`;
+    };
 };
 
 function tabela(tom) {
@@ -149,7 +158,7 @@ function tabela(tom) {
         casaUmC = notasBraco.slice(24, 36);
         casaUmD = notasBraco.slice(19, 31);
         casaUmE = notasBraco.slice(26, 38);
-    }
+    };
 
     tabela.innerHTML = `
     <tr>
