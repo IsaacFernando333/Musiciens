@@ -14,7 +14,7 @@ function restart() {
 
 
 function geraEscala(tonica, tipo) {
-    const notas = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
+    const notas = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     
     const novasNotas = [...notas.slice(notas.indexOf(tonica)), ...notas.slice(0, notas.indexOf(tonica))];
     
@@ -25,7 +25,7 @@ function geraEscala(tonica, tipo) {
     };
     
     if (tipo === 1) {
-        formula = [0, 2, 3, 5, 7, 8, 11, 12];
+        formula = [0, 2, 3, 5, 7, 8, 11];
     };
     
     if (tipo === 2) {
@@ -33,7 +33,7 @@ function geraEscala(tonica, tipo) {
     };
     
     if (tipo === 3) {
-        formula = [0, 2,  3,  5, 7, 8, 10, 12];
+        formula = [0, 2,  3,  5, 7, 8, 10];
     };
     
     if (tipo === 4) {
@@ -57,7 +57,31 @@ function geraEscala(tonica, tipo) {
     return escala;
 };
 
+
+function geraCampo(tipo, escala) {
+    let campo = '';
+    if (tipo === 0) {
+        campo = `Campo Harmônico: ${escala[0]} - ${escala[1]}m - ${escala[2]}m - ${escala[3]} - ${escala[4]} - ${escala[5]}m - ${escala[6]}∅`;
+    };
+    
+    if (tipo === 1) {
+        campo = `Campo Harmônico: ${escala[0]}m7M - ${escala[1]}∅ - ${escala[2]}7M(5#) - ${escala[3]}m7 - ${escala[4]}7 - ${escala[5]}7M - ${escala[6]}°`;
+    };
+    
+    if (tipo === 2) {
+        campo = `Campo Harmônico: ${escala[0]}m7M - ${escala[1]}m7 - ${escala[2]}7M(5#) - ${escala[3]}7 - ${escala[4]}7 - ${escala[5]}∅ - ${escala[6]}∅`;
+    };
+    
+    if (tipo === 3) {
+        campo = `Campo Harmônico: ${escala[0]}m - ${escala[1]}∅ - ${escala[2]} - ${escala[3]}m - ${escala[4]}m - ${escala[5]} - ${escala[6]}`;
+    };
+
+    return campo;
+};
+
+
 function format() {
+    let tipos = document.querySelector('.tipos').value;
     let afina = document.querySelector('.afina').value;
 
     tabela(Number(afina));
@@ -93,11 +117,16 @@ function format() {
     } else if (trem.length === 5) {
         infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]}`;
     };
+
+    let campo = geraCampo(Number(tipos), trem);
+
+    infoDois.innerHTML = `${campo}`;
+
 };
 
 function tabela(tom) {
     const tabela = document.querySelector('.tabela');
-    const notasBraco = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
+    const notasBraco = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     let casaUmA = [];
     let casaUmB = [];
     let casaUmC = [];

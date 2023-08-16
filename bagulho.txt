@@ -1,0 +1,27 @@
+campos harmônicos possuem 7 graus
+
+Pegar as notas da escala:
+
+em ordem Aplicar o formato;
+
+Menor Natural
+
+Im - IIm(b5) - III - IVm - Vm - VI - VII
+
+
+Menor Harmônico
+
+
+Im - IIm(b5) - III5# - IVm - V - VI - VIIDim
+
+
+Menor Melódico
+
+
+Im - IIm - III5# - IV - V - VIDim - VIIDim
+
+
+Maior natural
+
+
+I - IIm - IIIm - IV - V - VIm - VIIDim
