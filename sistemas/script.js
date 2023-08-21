@@ -8,53 +8,43 @@ const bt = document.querySelector('.bt');
 function restart() {
     const tipos = document.querySelector('.tipos').value;
     const select = document.querySelector('.selecionar').value;
-    const escalaFormada = geraEscala(`${select}`, Number(tipos));
+    let bagulho = tipos.split(',')
+    let k = [];
+    for (n of bagulho) {
+        k.push(Number(n));
+    }
+
+    const escalaFormada = geraEscala(`${select}`, k);
     return escalaFormada;
 };
 
 
-function geraEscala(tonica, tipo) {
-    const notas = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    
-    const novasNotas = [...notas.slice(notas.indexOf(tonica)), ...notas.slice(0, notas.indexOf(tonica))];
-    
-    let formula = new Array();
-    
-    if (tipo === 0) {
-        formula = [0, 2, 4, 5, 7, 9, 11];
-    };
-    
-    if (tipo === 1) {
-        formula = [0, 2, 3, 5, 7, 8, 11];
-    };
-    
-    if (tipo === 2) {
-        formula = [0,  2,  3,  5, 7, 9, 11];
-    };
-    
-    if (tipo === 3) {
-        formula = [0, 2,  3,  5, 7, 8, 10];
-    };
-    
-    if (tipo === 4) {
-        formula = [0, 3, 5, 7, 10];
-    };
-    
-    if (tipo === 5) {
-        formula = [0, 2, 4, 7, 9];
-    };
+function geraEscala(tonica, formula) {
+      // Definir as notas possíveis na escala cromática
+  let escalaCromatica = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  
+  // Encontrar a posição da tônica na escala cromática
+  let posicaoTonica = escalaCromatica.indexOf(tonica);
 
-    if (tipo === 6) {
-        formula = [0, 2, 3, 5, 6, 8, 9, 11];
-    };
+  if (posicaoTonica === -1) {
+    // Se a tônica não for encontrada na escala cromática, retornar um erro
+    return "Tônica inválida";
+  }
+
+  // Inicializar a escala com a tônica
+  var escala = [tonica];
+
+  // Gerar a escala com base na fórmula
+  for (var i = 0; i < formula.length; i++) {
+    // Calcular a próxima posição na escala com base na fórmula
+    posicaoTonica += formula[i];
+    posicaoTonica %= escalaCromatica.length; // Certificar-se de que a posição está dentro do intervalo
     
-    const escala = new Array();
-    
-    for (e of formula) {
-        escala.push(novasNotas[e]);
-    };
-    
-    return escala;
+    // Adicionar a nota correspondente à escala
+    escala.push(escalaCromatica[posicaoTonica]);
+  }
+
+  return escala;
 };
 
 
@@ -95,7 +85,7 @@ function format() {
     };
     
     let trem = restart();
-    
+
     for (l of trem) {
         for (n of notasVisuais) {
             if (n.innerText === l) {
@@ -105,18 +95,15 @@ function format() {
         };
     };
 
-    tip = ['maior natural', 'menor harmônica', 'menor melódica', 'menor natural', 'pentatônica menor', 'pentatônica maior', 'diminuta'];
-    let indexTip = document.querySelector('.tipos').value;
-    
-    nome.innerHTML = `${trem[0]} ${tip[indexTip]}`;
+    let nt = trem.slice(0, -1);
+    let rst = '';
 
-    if (trem.length === 8) {
-        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]} - ${trem[5]} - ${trem[6]} - ${trem[7]}`;
-    } else if (trem.length === 7) {
-        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]} - ${trem[5]} - ${trem[6]}`;
-    } else if (trem.length === 5) {
-        infoUm.innerHTML = `Notas: ${trem[0]} - ${trem[1]} - ${trem[2]} - ${trem[3]} - ${trem[4]}`;
-    };
+    for (no of nt) {
+        rst += `${no} `;
+    }
+
+    infoUm.innerHTML = `Notas: ${rst}`;
+    
 
     let campo = geraCampo(Number(tipos), trem);
 
@@ -289,3 +276,86 @@ function tabela(tom) {
 }
 
 tabela(0);
+
+
+function iniciar() {
+    
+    let formulas = [
+        [2, 2, 1, 2, 2, 2, 1], // Escala Maior
+        [2, 1, 2, 2, 1, 2, 2], // Escala Menor Natural
+        [2, 1, 2, 2, 1, 3, 1], // Escala Menor Harmônica
+        [2, 1, 2, 2, 2, 2, 1], // Escala Menor Melódica
+        [2, 2, 3, 2, 3],       // Pentatônica Maior
+        [3, 2, 2, 3, 2],       // Pentatônica Menor
+        [3, 2, 1, 1, 3, 2],    // Pentatônica Blues
+        [2, 2, 1, 2, 2, 2, 1], // Escala Jônica
+        [2, 1, 2, 2, 2, 1, 2], // Escala Dórica
+        [1, 2, 2, 2, 1, 2, 2], // Escala Frígia
+        [2, 2, 2, 1, 2, 2, 1], // Escala Lídia
+        [2, 2, 1, 2, 2, 1, 2], // Escala Mixolídia
+        [1, 2, 2, 1, 2, 2, 2], // Escala Locria
+        [3, 2, 1, 1, 3, 2],    // Escala Blues
+        [3, 2, 1, 1, 1, 3, 2], // Escala Pentablues
+        [2, 1, 2, 2, 1, 2, 2], // Escala Eólia
+        [2, 1, 2, 2, 1, 3, 1], // Escala Eólia Harmônica
+        [2, 1, 2, 2, 2, 2, 1], // Escala Eólia Melódica
+        [3, 2, 2, 2, 3],       // Escala Eólia Pentatônica
+        [3, 2, 1, 1, 2, 3],    // Escala Eólia Blues
+        [1, 2, 2, 2, 2, 1, 2], // Escala Frígia Maior
+        [1, 2, 1, 2, 2, 2, 1], // Escala Frígia Maior Blues
+        [1, 2, 1, 2, 1, 2, 1, 2], // Escala Dominante Diminuta
+        [1, 2, 1, 2, 1, 1, 3, 2], // Escala Dominante Diminuta Blues
+        [1, 2, 1, 2, 2, 2, 2], // Escala Alterada
+        [2, 1, 3, 1, 1, 3, 1], // Escala Menor Húngara
+        [2, 1, 3, 1, 1, 2, 2], // Escala Menor Húngara Blues
+        [1, 3, 2, 2, 2, 1, 1], // Escala Enigmática
+        [1, 3, 2, 1, 3, 1, 1], // Escala Enigmática Menor
+        [2, 2, 1, 2, 1, 1, 2, 1] // Escala Bebop Maior
+    ];
+    
+    let nomesEscalas = [
+        "Escala Maior",
+        "Escala Menor Natural",
+        "Escala Menor Harmônica",
+        "Escala Menor Melódica",
+        "Pentatônica Maior",
+        "Pentatônica Menor",
+        "Pentatônica Blues",
+        "Escala Jônica",
+        "Escala Dórica",
+        "Escala Frígia",
+        "Escala Lídia",
+        "Escala Mixolídia",
+        "Escala Locria",
+        "Escala Blues",
+        "Escala Pentablues",
+        "Escala Eólia",
+        "Escala Eólia Harmônica",
+        "Escala Eólia Melódica",
+        "Escala Eólia Pentatônica",
+        "Escala Eólia Blues",
+        "Escala Frígia Maior",
+        "Escala Frígia Maior Blues",
+        "Escala Dominante Diminuta",
+        "Escala Dominante Diminuta Blues",
+        "Escala Alterada",
+        "Escala Menor Húngara",
+        "Escala Menor Húngara Blues",
+        "Escala Enigmática",
+        "Escala Enigmática Menor",
+        "Escala Bebop Maior"
+    ];
+    
+    // Referência ao elemento <select> no HTML
+    let selectTipos = document.querySelector('.selecionar.tipos');
+    
+    // Preencher as opções do <select> com base nas variáveis
+    for (let i = 0; i < formulas.length; i++) {
+        let option = document.createElement('option');
+        option.value = formulas[i].join(','); // Converter a fórmula em uma string
+        option.textContent = nomesEscalas[i]; // Usar o nome da escala como texto
+        selectTipos.appendChild(option);
+    }
+}
+
+iniciar();
